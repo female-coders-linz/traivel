@@ -36,8 +36,14 @@
         var bestMatch = document.getElementById('bestMatch');
 
         {% if best_match %}
-        bestMatch.textContent = "I recommend to {{ best_match }}";
-        searchResults.style.display = 'block'; // Display results when best match is available
+        if ("{{ best_match }}" === "0") {
+            bestMatch.textContent = "I can only offer my advice for Vienna, Salzburg, or Linz. Please specify one of those cities.";
+        } else if ("{{ best_match }}" === "-1") {
+            bestMatch.textContent = "Sorry, we cannot recommend anything";
+        } else {
+            bestMatch.textContent = "I recommend to {{ best_match }}";
+        }
+        searchResults.style.display = 'block'; // Display results when the best match is available
         {% endif %}
     </script>
 </body>

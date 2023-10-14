@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 
 # Your code to calculate embeddings and find the best match
 from sentence_transformers import SentenceTransformer, util
+from numpy import dot, transpose, argmax
+from numpy.linalg import norm
 import numpy as np
 import torch
 
@@ -39,12 +41,18 @@ def search():
     queryEmbedding = model.encode(query)
     cos_sim = []
 
-    for embedding in embeddings:
-        cos_sim.append(util.pytorch_cos_sim(queryEmbedding, embedding)[0][0].item())
+    if any(x in query.lower() for x in ["vienna", "linz", "salzburg"]):
+        for embedding in embeddings:
+            cos_sim.append(util.pytorch_cos_sim(queryEmbedding, embedding)[0][0].item())
 
-    best_match_index = np.argmax(cos_sim)
-    best_match_description = activity_descriptions[best_match_index]
-
+        best_match_index = np.argmax(cos_sim)
+        if cos_sim[best_match_index] < 0.5:
+            best_match_description = "-1"
+        else:
+            best_match_description = activity_descriptions[best_match_index]
+    else:
+        best_match_description = "0"
+    print(best_match_description)
     return render_template('traiwell.html', query=query, best_match=best_match_description)
 
 if __name__ == '__main__':
