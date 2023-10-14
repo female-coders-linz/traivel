@@ -16,6 +16,7 @@ def index():
 def search():
     model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
     activity_descriptions = [
+        "Explore the historic Old Town of Linz with home of Johan Kepler.",
         "Explore the heart of Austria's capital. Visit the Hofburg Palace, St. Stephen's Cathedral, and more.",
         "Discover the magnificent Schönbrunn Palace, a UNESCO World Heritage site with beautiful gardens.",
         "Enjoy a scenic cruise along the Danube River, taking in the city's stunning skyline.",
