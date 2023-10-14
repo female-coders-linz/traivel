@@ -36,7 +36,7 @@
         var bestMatch = document.getElementById('bestMatch');
 
         {% if best_match %}
-        bestMatch.textContent = "{{ best_match }}";
+        bestMatch.textContent = "I recommend to {{ best_match }}";
         searchResults.style.display = 'block'; // Display results when best match is available
         {% endif %}
     </script>
