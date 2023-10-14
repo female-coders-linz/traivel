@@ -1,0 +1,44 @@
+<!-- traiwell.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Website Example</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        #searchResults {
+            display: none; /* Hide the search results initially */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+           <img src="{{ url_for('static', filename='images/black_logo.png') }}" alt="Logo">
+        </div>
+        <div class="search">
+            <form action="/search" method="POST">
+                <input type="text" name="query" placeholder="Search...">
+                <button type="submit">Recommend me</button>
+            </form>
+        </div>
+    </header>
+    <main>
+        <div class="output">
+            <div id="searchResults">
+                <p id="bestMatch"></p>
+            </div>
+        </div>
+    </main>
+    <script>
+        // JavaScript to reveal the results when the best match is available
+        var searchResults = document.getElementById('searchResults');
+        var bestMatch = document.getElementById('bestMatch');
+
+        {% if best_match %}
+        bestMatch.textContent = "{{ best_match }}";
+        searchResults.style.display = 'block'; // Display results when best match is available
+        {% endif %}
+    </script>
+</body>
+</html>
